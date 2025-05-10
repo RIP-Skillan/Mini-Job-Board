@@ -1,6 +1,6 @@
 <template>
   <Listbox v-model="selected">
-    <div class="relative flex-1 ">
+    <div class="relative flex-1 z-10">
       <ListboxButton
         class="w-full flex-1 py-2 px-4 text-left bg-white/10 text-white border border-white/20 rounded-md backdrop-blur-md focus:outline-none"
       >
