@@ -1,11 +1,4 @@
 <template>
-  <div class="relative min-h-screen px-4 py-8 bg-gradient-to-br from-gray-900 to-black text-white">
-    <!-- 3D Gradient Blobs for Aesth -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute top-10 left-1/4 w-72 h-72 bg-purple-600 blur-[100px] opacity-30 rounded-full"></div>
-      <div class="absolute bottom-10 right-1/4 w-72 h-72 bg-pink-600 blur-[100px] opacity-30 rounded-full"></div>
-    </div>
-
     <!-- Job Filter Panel -->
     <div class="relative z-10 w-full max-w-2xl p-8 mx-auto bg-white/5 backdrop-blur-md rounded-2xl shadow-xl ring-1 ring-white/10 animate-fade-in">
       <h1 class="text-3xl font-semibold mb-6 text-center">Find Your Next Job</h1>
@@ -24,44 +17,83 @@
     </div>
 
     <div class="relative z-9 mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-      <JobCard
-        v-for="job in filteredJobs"
+      <NuxtLink
+        v-for="job in paginatedItems"
         :key="job.id"
-        :title="job.title"
-        :company="job.company"
-      />
+        :to="`/jobs/${job.id}`"
+        class="block"
+      >
+        <JobCard :title="job.title" :company="job.company" />
+      </NuxtLink>
     </div>
+
+      
+    <div class="flex justify-center mt-6 gap-2 cursor-pointer text-white">
+      <button
+        v-for="n in totalPages"
+        :key="n"
+        :class="[
+          'px-3 py-1 z-11 rounded-full border transition-colors duration-300 ',
+          currentPage === n ? 'bg-white text-black' : 'bg-transparent border-white'
+        ]"
+        @click="goToPage(n)"
+      >
+        {{ n }}
+      </button>
+    </div>
+
+
     <div
       v-if="filteredJobs.length === 0"
       class="text-center text-white/80 mt-10 text-lg"
     >
       No jobs found matching your criteria.
     </div>
-
-  </div>
 </template>
 
-<script setup>
-import JobCard from '~/components/JobCard.vue'
+<script setup lang="ts">
+  import JobCard from '~/components/JobCard.vue'
 
-const { data: jobs } = await useFetch('/data/jobs.json')
-//console.log('Loaded jobs:', jobs)
+  type Job = {
+    id: string
+    title: string
+    company: string
+    location: string
+    type: string
+    description: string
+  }
 
-const jobTitleFilter = ref('')
-const jobLocationFilter = ref('All Locations')
-const jobTypeFilter = ref('All Types')
+  const { data: jobs } = await useFetch<Job[]>('/data/jobs.json',{server: false})
+  //console.log('Loaded jobs:', jobs)
+
+  const jobTitleFilter = ref('')
+  const jobLocationFilter = ref('All Locations')
+  const jobTypeFilter = ref('All Types')
 
 
-const filteredJobs = computed(() => {
-  if (!jobs.value) return []
+  const filteredJobs = computed(() => {
+    if (!jobs.value) return []
 
-  return jobs.value.filter(job => {
-    const matchTitle = job.title.toLowerCase().includes(jobTitleFilter.value.toLowerCase())
-    const matchLocation = jobLocationFilter.value === 'All Locations' || job.location === jobLocationFilter.value
-    const matchType = jobTypeFilter.value === 'All Types' || job.type === jobTypeFilter.value
-    return matchTitle && matchLocation && matchType
+    return jobs.value.filter(job => {
+      const matchTitle = job.title.toLowerCase().includes(jobTitleFilter.value.toLowerCase())
+      const matchLocation = jobLocationFilter.value === 'All Locations' || job.location === jobLocationFilter.value
+      const matchType = jobTypeFilter.value === 'All Types' || job.type === jobTypeFilter.value
+      return matchTitle && matchLocation && matchType
+    })
   })
-})
+
+  const {
+    currentPage,
+    totalPages,
+    paginatedItems,
+    goToPage
+  } = usePagination(filteredJobs, 5)
+
+  watchEffect(() => {
+    console.log('Current page:', currentPage.value)
+    console.log('Showing jobs:', paginatedItems.value.map(j => j.title))
+  })
+
 
 </script>
 
@@ -81,5 +113,6 @@ const filteredJobs = computed(() => {
   .animate-fade-in {
     animation: fade-in 0.6s ease-out forwards;
   }
+
 </style>
 
