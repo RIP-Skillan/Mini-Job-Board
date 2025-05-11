@@ -28,7 +28,7 @@ npm install
 npm run dev
 
 # 4. Open localhost:3000 in your browser
-http://localhost:3000/
+[localhost:3000](http://localhost:3000/)
 ```
 
 ## 🧱 Project Structure
