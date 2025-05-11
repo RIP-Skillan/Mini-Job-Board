@@ -27,8 +27,8 @@ npm install
 # 3. Run the development server
 npm run dev
 ```
-After following the above steps, visit localhost:3000 in your browser to check out the web-app
-[localhost:3000](http://localhost:3000/)
+After following the above steps, visit [localhost:3000](http://localhost:3000/) in your browser to check out the web-app
+
 
 ## 🧱 Project Structure
 
