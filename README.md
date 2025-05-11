@@ -70,7 +70,7 @@ After following the above steps, visit [localhost:3000](http://localhost:3000/) 
 ```
 
 ## 🐞 Known Issues
-  - Manual input of an invalid job ID leads to a 404 — expected behavior
+  - Manual input of an job ID directly in the url leads to a 404 — **expected behavior**
   - No other currently known issues. However I do think the UI of the Custom Input dropdown menu could have been done a bit 
     differently to imporove readablitly.
 
