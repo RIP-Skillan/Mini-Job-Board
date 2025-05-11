@@ -1,75 +1,73 @@
-# Nuxt Minimal Starter
+# 🧳 Nuxt 3 Mini Job Board
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A clean, dark-themed job board built with **Nuxt 3** and **Vue 3**, featuring job filters, animated pagination, and detailed job views — all powered by static JSON data.
 
-## Setup
+## 🚀 Features
+
+- Browse job listings from a static `jobs.json` file
+- Filter by **Title**, **Location**, and **Job Type** (live updates)
+- Paginated results (5 jobs per page with animation)
+- Detailed job view with fallback 404 for invalid IDs
+- Responsive design with floating and 3D-Depth based UI
+
+---
+
+## 🛠️ Setup Instructions
 
 Make sure to install dependencies:
 
 ```bash
-# npm
+# 1. Clone the repository (if uploaded to github)
+git clone <url>
+cd nuxt3-job-board
+
+# 2. Install dependencies
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+# 3. Run the development server
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## 🧱 Project Structure
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+│
+├── assets/
+│   └── css/   
+│       └── main.css           # For Tailwind Setup   
+│
+├── components/
+│   ├── Custom-Select.vue      # Custom input dropdown menu (styled and themed)
+│   └── JobCard.vue            # Visual card component for displaying job summary (title + company)
+│
+├── composables/
+│   └── usePagination.ts       # Composable for handling pagination logic (5 items/page)
+│
+├── layouts/
+│   └── default.vue            # Themed layout with background, shared across pages
+│
+├── pages/
+│   ├── index.vue              # Home page — displays job list with real-time filters
+│   ├── 404.vue                # Custom error page (shown if job ID not found)
+│   └── jobs/[id].vue          # Dynamic route: displays detailed job information
+│
+├── public/
+│   └── data/   
+│   │   └── jobs.json         # Static JSON file containing job listings
+│   ├── favicon.ico
+│   └── robots.txt
+│
+├── app.vue                   # Nuxt app entry point
+├── nuxt.config.ts            # Nuxt configuration (modules, paths, etc.)
+├── tsconfig.json             # TypeScript Configuration
+├── package.json
+├── package-lock.json
+├── node_modules/             
+├── server/
+└── README.md
 ```
 
-Locally preview production build:
+## 🐞 Known Issues
+No currently known issues. However I do think the UI of the Custom Input dropdown menu could have been done a bit differently to imporove readablitly
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
