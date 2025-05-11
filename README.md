@@ -70,6 +70,14 @@ After following the above steps, visit [localhost:3000](http://localhost:3000/) 
 ```
 
 ## 🐞 Known Issues
-No currently known issues. However I do think the UI of the Custom Input dropdown menu could have been done a bit differently to imporove readablitly
+  - Manual input of an invalid job ID leads to a 404 — expected behavior
+  - No other currently known issues. However I do think the UI of the Custom Input dropdown menu could have been done a bit 
+    differently to imporove readablitly.
 
+## 🛠 Questions?
+ 1. About the "Route Validation" for Job Details page, should we build it such a way that even editing the url with /jobs/[id] 
+    manually would result in a valid page? If so i would use a onMounted() lifecycle hook to callback an asnync function that
+    would validate the route.
+    Right now my route is validated only if approached through the homepage
+ 2. I didn't exactly understand what the useJobs() composable would be used for or what it is supposed to do, so I haven't used it.
 ---

@@ -1,3 +1,31 @@
+<!--
+  This is the main page of the application, displaying a job listing with filtering and pagination.
+
+  Functionality:
+    - Fetches job data from '/data/jobs.json'.
+    - Provides filtering options for job titles, locations, and types.
+    - Displays jobs that match the filter criteria.
+    - Implements pagination to navigate through job listings.
+    - Shows a message when no jobs match the current filter.
+
+  Components:
+    - JobCard: Displays individual job details.
+    - Custom-Select: Custom select input for filtering.
+
+  Data:
+    - jobs: Array of job objects fetched from the server.
+    - jobTitleFilter: Ref for the job title filter input.
+    - jobLocationFilter: Ref for the selected job location filter.
+    - jobTypeFilter: Ref for the selected job type filter.
+    - filteredJobs: Computed property that filters jobs based on the selected criteria.
+    - currentPage: Ref for the current page number in pagination.
+    - totalPages: Ref for the total number of pages in pagination.
+    - paginatedItems: Computed property that returns the jobs for the current page.
+
+  Methods:
+    - goToPage(pageNumber): Changes the current page to the specified page number.
+-->
+
 <template>
     <!-- Job Filter Panel -->
     <div class="relative z-10 w-full max-w-2xl p-8 mx-auto bg-white/5 backdrop-blur-md rounded-2xl shadow-xl ring-1 ring-white/10 animate-fade-in">
@@ -16,6 +44,7 @@
       </div>
     </div>
 
+    <!-- Filtered Job Listing -->
     <div class="relative z-9 mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
       <NuxtLink
         v-for="job in paginatedItems"
@@ -27,7 +56,7 @@
       </NuxtLink>
     </div>
 
-      
+    <!-- Pagination Navigation-->
     <div class="flex justify-center fixed bottom-1/3 left-1/2 -translate-x-1/2 mt-6 gap-2 text-white">
       <button
         v-for="n in totalPages"
@@ -42,7 +71,7 @@
       </button>
     </div>
 
-
+    <!-- Message for when no jobs match the filter -->
     <div
       v-if="filteredJobs.length === 0"
       class="text-center text-white/80 mt-10 text-lg"
@@ -64,13 +93,14 @@
   }
 
   const { data: jobs } = await useFetch<Job[]>('/data/jobs.json',{server: false})
-  //console.log('Loaded jobs:', jobs)
+  //console.log('Loaded jobs:', jobs)   This line was used for testing purposes
 
+  // Refs for Filtering
   const jobTitleFilter = ref('')
   const jobLocationFilter = ref('All Locations')
   const jobTypeFilter = ref('All Types')
 
-
+  // Filtering Jobs based on selected criteria
   const filteredJobs = computed(() => {
     if (!jobs.value) return []
 
@@ -82,6 +112,12 @@
     })
   })
 
+  // Whenever results are filtered, reset the current page to 1 to see the new results without any bugs
+  watch([jobTitleFilter, jobLocationFilter, jobTypeFilter], () => {
+    currentPage.value = 1
+  })
+
+  // Pagination
   const {
     currentPage,
     totalPages,
