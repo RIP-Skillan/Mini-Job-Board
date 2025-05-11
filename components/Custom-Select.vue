@@ -2,7 +2,7 @@
   <Listbox v-model="selected">
     <div class="relative flex-1 z-10">
       <ListboxButton
-        class="w-full flex-1 py-2 px-4 text-left bg-white/10 text-white border border-white/20 rounded-md backdrop-blur-md focus:outline-none"
+        class="w-full flex-1 py-2 px-4 text-left cursor-pointer bg-white/10 text-white border border-white/20 rounded-md backdrop-blur-md focus:outline-none"
       >
         {{ selected }}
         <span class="absolute right-4 text-white">▼</span>
@@ -17,7 +17,7 @@
         leave-to="opacity-0 scale-95"
       >
         <ListboxOptions
-          class="absolute mt-2 w-full rounded-md bg-gradient-to-r from-[#2d2d44cc] to-[#1c1c2ccc] text-white shadow-lg backdrop-blur-md border border-white/20 z-50 overflow-hidden"
+          class="absolute mt-2 w-full rounded-md bg-gradient-to-r from-[#000000cc] to-[#41415fcc] text-white shadow-lg backdrop-blur-md border border-white/20 z-50 overflow-hidden"
         >
           <ListboxOption
             v-for="item in options"

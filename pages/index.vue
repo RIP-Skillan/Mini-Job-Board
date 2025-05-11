@@ -28,12 +28,12 @@
     </div>
 
       
-    <div class="flex justify-center mt-6 gap-2 cursor-pointer text-white">
+    <div class="flex justify-center fixed bottom-1/3 left-1/2 -translate-x-1/2 mt-6 gap-2 text-white">
       <button
         v-for="n in totalPages"
         :key="n"
         :class="[
-          'px-3 py-1 z-11 rounded-full border transition-colors duration-300 ',
+          'px-3 py-1 z-11 rounded-full border transition-colors duration-300 cursor-pointer',
           currentPage === n ? 'bg-white text-black' : 'bg-transparent border-white'
         ]"
         @click="goToPage(n)"
@@ -88,12 +88,6 @@
     paginatedItems,
     goToPage
   } = usePagination(filteredJobs, 5)
-
-  watchEffect(() => {
-    console.log('Current page:', currentPage.value)
-    console.log('Showing jobs:', paginatedItems.value.map(j => j.title))
-  })
-
 
 </script>
 

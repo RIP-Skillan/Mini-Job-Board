@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-4 w-full bg-white/5 backdrop-blur-md rounded-xl shadow-md ring-1 ring-white/10 opacity-0 animate-fade-in"
+    class="p-4 w-full bg-white/5 backdrop-blur-md rounded-xl shadow-md ring-1 ring-white/10 opacity-0 animate-fade-in hover:bg-white/10 border border-white/20"
   >
     <h2 class="text-xl font-semibold text-white">{{ title }}</h2>
     <p class="text-sm text-gray-300">{{ company }}</p>
