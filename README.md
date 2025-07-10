@@ -75,7 +75,7 @@ After following the above steps, visit [localhost:3000](http://localhost:3000/) 
     differently to imporove readablitly.
 
 ## 🛠 Questions? 
-(Context: This project was based a task assigned to me. This questions are meant for assigners to review)
+(Context: This project was based a task assigned to me. These questions are meant for assigners to review)
  1. About the "Route Validation" for Job Details page, should we build it such a way that even editing the url with /jobs/[id] 
     manually would result in a valid page? If so i would use a onMounted() lifecycle hook to callback an asnync function that
     would validate the route.
